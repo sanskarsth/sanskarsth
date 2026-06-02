@@ -35,29 +35,26 @@ export default function Resume() {
               width: 100%;
               overflow: hidden;
             }
-            .pdf-container {
+            iframe {
               width: 100%;
               height: 100%;
-            }
-            .pdf-container embed {
-              width: 100%;
-              height: 100%;
+              border: none;
             }
           </style>
         </head>
         <body>
-          <div class="pdf-container">
-            <embed src="${resumePdfUrl}" type="application/pdf" />
-          </div>
+          <iframe id="printFrame" src="${resumePdfUrl}"></iframe>
           <script>
-            function printPdf() {
-              window.focus();
-              window.print();
+            const frame = document.getElementById('printFrame');
+            if (frame) {
+              frame.onload = () => {
+                setTimeout(() => {
+                  window.focus();
+                  window.print();
+                }, 300);
+              };
             }
-            window.onload = function() {
-              setTimeout(printPdf, 800);
-            };
-          </script>
+          <\/script>
         </body>
       </html>
     `);
