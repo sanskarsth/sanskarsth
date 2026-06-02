@@ -1,78 +1,27 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
 import { FileText, Download, Printer, Eye, EyeOff, CheckCircle, ExternalLink } from 'lucide-react';
 import heroImage from '../assets/images/hero_himalayas_1780318764999.png';
 
 export default function Resume() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const resumePdfUrl = '/resume.pdf';
 
-  const triggerPdfDownload = async () => {
-    const element = document.getElementById('printable-cv-sheet');
-    if (!element) return;
-
-    const canvas = await html2canvas(element, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: '#ffffff',
-    });
-
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF({ unit: 'mm', format: 'a4' });
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = pdf.internal.pageSize.getHeight();
-    const imgWidth = pdfWidth;
-    const imgHeight = (canvas.height * pdfWidth) / canvas.width;
-
-    const totalPages = Math.ceil(imgHeight / pdfHeight);
-    for (let page = 0; page < totalPages; page += 1) {
-      if (page > 0) pdf.addPage();
-      pdf.addImage(imgData, 'PNG', 0, -page * pdfHeight, imgWidth, imgHeight);
-    }
-
-    pdf.save('Sanskar_Shrestha_CV.pdf');
+  const triggerPdfDownload = () => {
+    const link = document.createElement('a');
+    link.href = resumePdfUrl;
+    link.download = 'Sanskar_Shrestha_CV.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const triggerPrint = () => {
-    const element = document.getElementById('printable-cv-sheet');
-    if (!element) return;
-
-    const cssLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-      .map((link) => link.outerHTML)
-      .join('');
-
-    const printWindow = window.open('', '_blank', 'width=900,height=700');
+    const printWindow = window.open(resumePdfUrl, '_blank');
     if (!printWindow) return;
 
-    printWindow.document.write(`
-      <!doctype html>
-      <html lang="en">
-        <head>
-          <meta charset="utf-8" />
-          <title>Sanskar Shrestha CV</title>
-          ${cssLinks}
-          <style>
-            @page { size: A4 portrait; margin: 10mm; }
-            body { margin: 0; padding: 0; background: #ffffff; }
-            #printable-cv-sheet { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 15mm; box-sizing: border-box; background: #ffffff; }
-            #printable-cv-sheet * { color: #000 !important; }
-          </style>
-        </head>
-        <body>
-          ${element.outerHTML}
-        </body>
-      </html>
-    `);
-
-    printWindow.document.close();
-    printWindow.focus();
-
     printWindow.onload = () => {
-      setTimeout(() => {
-        printWindow.print();
-        printWindow.close();
-      }, 200);
+      printWindow.print();
     };
   };
 
@@ -208,123 +157,12 @@ export default function Resume() {
               </div>
 
               {/* The Paper A4 sheet layout structure container */}
-              <div
-                id="printable-cv-sheet"
-                className="bg-white text-stone-900 rounded-lg p-10 md:p-16 shadow-2xl border border-stone-200 mx-auto max-w-[210mm] transition-all duration-300 text-left font-serif leading-relaxed pr-8 md:pr-16"
-              >
-                {/* Header/Letterhead */}
-                <div className="border-b-2 border-stone-900 pb-6 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
-                  <div>
-                    <h3 className="font-sans font-extrabold text-3xl tracking-wide uppercase text-stone-900">
-                      Sanskar Shrestha
-                    </h3>
-                    <p className="font-sans text-xs uppercase tracking-widest text-[#5266eb] font-bold mt-1.5">
-                      Expedition Curator & High-Altitude Logistics Advisor
-                    </p>
-                  </div>
-                  <div className="font-sans text-[11px] text-stone-600 space-y-1 text-left sm:text-right">
-                    <p>Kathmandu, Nepal</p>
-                    <p>sanskarshr@gmail.com</p>
-                    <p>+977 98031 21612</p>
-                  </div>
-                </div>
-
-                {/* Section: Professional Summary */}
-                <div className="mb-8">
-                  <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-stone-900 border-b border-stone-300 pb-1 mb-3">
-                    Professional Statement
-                  </h4>
-                  <p className="text-stone-700 text-sm leading-relaxed font-light font-serif">
-                    Independent alpine expedition curator and expert logistics liaison born and operating in Kathmandu. Over a decade of field planning and risk reduction, securing absolute safety compliance and customized cultural and high-end sanctuary itineraries across Nepal, Tibet, and Bhutan.
-                  </p>
-                </div>
-
-                {/* Section: Professional Experience */}
-                <div className="mb-8">
-                  <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-stone-900 border-b border-stone-300 pb-1 mb-4">
-                    Advisory & Field Experience
-                  </h4>
-
-                  <div className="space-y-6">
-                    {/* Item 1 */}
-                    <div>
-                      <div className="flex justify-between items-start font-sans text-xs mb-1.5">
-                        <div>
-                          <strong className="text-stone-900 text-sm block font-serif font-bold">Lead Private Expedition Curator</strong>
-                          <span className="text-stone-600">Sanskar Shrestha Escapes • Independent</span>
-                        </div>
-                        <span className="text-stone-500 font-medium">2019 — Present</span>
-                      </div>
-                      <ul className="list-disc pl-5 text-[13px] text-stone-700 space-y-1 font-serif font-light">
-                        <li>Designs and refines day-by-day expedition layouts custom-molded to physical thresholds and elite aesthetic goals.</li>
-                        <li>Maintains priority allocations with leading lodge partners including Aman Residences, Dwarika's, and mountain boutiques.</li>
-                        <li>Organizes satellite radio assets and automated helicopter backup tracking corridors on high-risk tracks.</li>
-                      </ul>
-                    </div>
-
-                    {/* Item 2 */}
-                    <div>
-                      <div className="flex justify-between items-start font-sans text-xs mb-1.5">
-                        <div>
-                          <strong className="text-stone-900 text-sm block font-serif font-bold">Senior Alpine Operations Coordinator</strong>
-                          <span className="text-stone-600">Himalayan Ridge Logistical Partner Alliance</span>
-                        </div>
-                        <span className="text-stone-500 font-medium">2015 — 2019</span>
-                      </div>
-                      <ul className="list-disc pl-5 text-[13px] text-stone-700 space-y-1 font-serif font-light">
-                        <li>Supervised and routed multi-generation family groups across highly challenging high-altitude terrain layers.</li>
-                        <li>Vetted, certified, and managed over 60 elite Gurung and Sherpa guides with direct emergency drills.</li>
-                        <li>Administered double-network communication channels across deep gorges and dead telemetry areas.</li>
-                      </ul>
-                    </div>
-
-                    {/* Item 3 */}
-                    <div>
-                      <div className="flex justify-between items-start font-sans text-xs mb-1.5">
-                        <div>
-                          <strong className="text-stone-900 text-sm block font-serif font-bold">Expedition Liaison & Field Administrator</strong>
-                          <span className="text-stone-600">Summit Wilderness Advisors</span>
-                        </div>
-                        <span className="text-stone-500 font-medium">2011 — 2015</span>
-                      </div>
-                      <ul className="list-disc pl-5 text-[13px] text-stone-700 space-y-1 font-serif font-light">
-                        <li>Processed environmental permits and high-elevation park clearances under strict government regulations.</li>
-                        <li>Coordinated respect protocols and gateway clearances with monastic communities across Everest valleys.</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Section: Competencies & Skills */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 border-t border-stone-200 pt-6">
-                  <div>
-                    <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-stone-900 mb-2.5">
-                      Technical Security & Safety
-                    </h4>
-                    <p className="text-[12px] text-stone-700 space-y-1 leading-relaxed font-serif font-light">
-                      • Acclimatization design, clinical-grade oxygen setup<br />
-                      • Garmin InReach, VHF/UHF, emergency logistics<br />
-                      • High-Altitude wilderness medical response
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-stone-900 mb-2.5">
-                      Cultural & Operational
-                    </h4>
-                    <p className="text-[12px] text-stone-700 space-y-1 leading-relaxed font-serif font-light">
-                      • Fluent in English, Nepali, Tibetan, local dialects<br />
-                      • Aman Resorts and Dwarika's booking liaison<br />
-                      • Eco-sensitive adventure logistics standards
-                    </p>
-                  </div>
-                </div>
-
-                {/* Footer Signature */}
-                <div className="border-t border-stone-300 pt-4 flex justify-between items-center text-[10px] font-sans text-stone-500">
-                  <span>Certified Wilderness Medical Responder</span>
-                  <span className="italic font-serif">Sanskar Shrestha • Kathmandu</span>
-                </div>
-
+              <div className="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-2xl mx-auto max-w-full">
+                <iframe
+                  title="Resume Preview"
+                  src={resumePdfUrl}
+                  className="w-full min-h-[1100px] border-0"
+                />
               </div>
 
             </motion.div>
