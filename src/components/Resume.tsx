@@ -18,12 +18,51 @@ export default function Resume() {
   };
 
   const triggerPrint = () => {
-    const printWindow = window.open(resumePdfUrl, '_blank');
+    const printWindow = window.open('', '_blank', 'width=900,height=700');
     if (!printWindow) return;
 
-    printWindow.onload = () => {
-      printWindow.print();
-    };
+    printWindow.document.write(`
+      <!doctype html>
+      <html lang="en">
+        <head>
+          <meta charset="utf-8" />
+          <title>Print CV</title>
+          <style>
+            body, html {
+              margin: 0;
+              padding: 0;
+              height: 100%;
+              width: 100%;
+              overflow: hidden;
+            }
+            .pdf-container {
+              width: 100%;
+              height: 100%;
+            }
+            .pdf-container embed {
+              width: 100%;
+              height: 100%;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="pdf-container">
+            <embed src="${resumePdfUrl}" type="application/pdf" />
+          </div>
+          <script>
+            function printPdf() {
+              window.focus();
+              window.print();
+            }
+            window.onload = function() {
+              setTimeout(printPdf, 800);
+            };
+          </script>
+        </body>
+      </html>
+    `);
+
+    printWindow.document.close();
   };
 
   return (
@@ -158,7 +197,7 @@ export default function Resume() {
               </div>
 
               {/* The Paper A4 sheet layout structure container */}
-              <div className="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-2xl mx-auto max-w-full">
+              <div id="printable-cv-sheet" className="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-2xl mx-auto max-w-full">
                 <iframe
                   title="Resume Preview"
                   src={resumePdfUrl}
