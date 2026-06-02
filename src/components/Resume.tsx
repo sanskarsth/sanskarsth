@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { FileText, Download, Printer, Eye, EyeOff, CheckCircle, ExternalLink } from 'lucide-react';
 import heroImage from '../assets/images/hero_himalayas_1780318764999.png';
+import resumePdf from '../assets/cv/SanskarShresthaResume.pdf';
 
 export default function Resume() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const resumePdfUrl = '/resume.pdf';
+  const resumePdfUrl = resumePdf;
 
   const triggerPdfDownload = () => {
     const link = document.createElement('a');
