@@ -88,7 +88,7 @@ export default function About({ onPlanJourney }: AboutProps) {
               <div className="absolute -bottom-6 -right-6 bg-midnight-slate border border-lead p-5 rounded-lg max-w-[200px] hidden sm:block">
                 <span className="block font-display text-2xl font-bold text-starlight mb-0.5">Nepal Expert</span>
                 <span className="block font-mono text-[9px] uppercase tracking-widest text-silver">
-                  Born & Based in Kathmandu
+                  Born & Based in Nepal
                 </span>
               </div>
             </div>
