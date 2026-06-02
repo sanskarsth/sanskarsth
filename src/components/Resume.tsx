@@ -34,6 +34,7 @@ export default function Resume() {
               height: 100%;
               width: 100%;
               overflow: hidden;
+              background: #ffffff;
             }
             iframe {
               width: 100%;
@@ -49,9 +50,13 @@ export default function Resume() {
             if (frame) {
               frame.onload = () => {
                 setTimeout(() => {
-                  window.focus();
-                  window.print();
-                }, 300);
+                  try {
+                    window.focus();
+                    window.print();
+                  } catch (e) {
+                    console.warn('Print failed', e);
+                  }
+                }, 600);
               };
             }
           <\/script>
