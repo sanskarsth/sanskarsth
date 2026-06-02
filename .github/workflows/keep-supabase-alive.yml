@@ -2,32 +2,70 @@ name: Keep Supabase Alive
 
 on:
   schedule:
-    # Runs every day at 12:00 UTC
     - cron: '0 12 * * *'
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:
 
 jobs:
   ping-supabase:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Debug - Show URL prefix (hidden)
+        run: |
+          echo "Checking if secrets are loaded..."
+          if [ -n "${{ secrets.SUPABASE_URL }}" ]; then
+            echo "✅ SUPABASE_URL secret exists (value hidden)"
+          else
+            echo "❌ SUPABASE_URL secret is MISSING"
+          fi
+          
+          if [ -n "${{ secrets.SUPABASE_ANON_KEY }}" ]; then
+            echo "✅ SUPABASE_ANON_KEY secret exists (value hidden)"
+          else
+            echo "❌ SUPABASE_ANON_KEY secret is MISSING"
+          fi
+      
       - name: Ping Supabase API
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
-          echo "Pinging Supabase to prevent auto-pause..."
+          # Check if URL starts with https://
+          if [[ ! "$SUPABASE_URL" =~ ^https?:// ]]; then
+            echo "❌ ERROR: SUPABASE_URL does not start with https://"
+            echo "Current value starts with: ${SUPABASE_URL:0:20}"
+            exit 1
+          fi
+          
+          echo "Pinging: ${SUPABASE_URL}/rest/v1/"
+          
+          # Make the actual request
           STATUS=$(curl -o /dev/null -w "%{http_code}" \
-            -X GET "https://${SUPABASE_URL}/rest/v1/" \
+            -X GET "${SUPABASE_URL}/rest/v1/" \
             -H "apikey: ${SUPABASE_ANON_KEY}" \
-            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}")
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+            -H "Content-Type: application/json" \
+            --max-time 30 \
+            --fail \
+            -v 2>&1)
+          
+          echo "Response status: $STATUS"
           
           if [ "$STATUS" = "200" ]; then
-            echo "✅ Supabase ping successful! (Status: $STATUS)"
+            echo "✅ Supabase ping successful!"
           else
-            echo "❌ Supabase ping failed! (Status: $STATUS)"
+            echo "❌ Supabase ping failed with status: $STATUS"
+            echo "Troubleshooting tips:"
+            echo "1. Check your SUPABASE_URL is correct (no typos)"
+            echo "2. Check your anon key is the PUBLIC key, not service_role"
+            echo "3. Make sure your Supabase project isn't paused already"
             exit 1
           fi
       
-      - name: Log timestamp
-        run: echo "Last ping at $(date -u)"
+      - name: Success log
+        if: success()
+        run: echo "✅ Keep-alive successful at $(date -u)"
+      
+      - name: Failure notification
+        if: failure()
+        run: echo "❌ Keep-alive failed. Please check your secrets in GitHub Settings → Secrets and variables → Actions"
