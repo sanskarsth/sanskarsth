@@ -1,0 +1,31 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    - cron: '0 0 */3 * *'
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Vercel keep-alive endpoint
+        env:
+          KEEP_ALIVE_SECRET: ${{ secrets.KEEP_ALIVE_SECRET }}
+        run: |
+          set -e
+          KEEP_ALIVE_URL="https://www.ssanskar.com.np/api/keep-alive"
+
+          echo "Pinging $KEEP_ALIVE_URL"
+          status=$(curl -sS -o /tmp/keepalive.json -w "%{http_code}" \
+            -H "X-KEEP-ALIVE-SECRET: ${KEEP_ALIVE_SECRET}" \
+            "$KEEP_ALIVE_URL")
+
+          if [ "$status" != "200" ]; then
+            echo "Keep-alive ping failed with HTTP $status"
+            cat /tmp/keepalive.json
+            exit 1
+          fi
+
+          echo "Keep-alive succeeded"
+          cat /tmp/keepalive.json
