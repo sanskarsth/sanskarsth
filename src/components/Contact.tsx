@@ -1,8 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Mail, PhoneCall, Instagram, Facebook, Linkedin, ArrowUpRight } from 'lucide-react';
+import { Mail, PhoneCall, Instagram, Facebook, Linkedin, Copy, CheckCircle } from 'lucide-react';
 
 export default function Contact() {
+  const [copiedText, setCopiedText] = useState('');
+  const email = 'sanskarshr@gmail.com';
+  const phone = '+977 98031 21612';
+  const isMobile = typeof navigator !== 'undefined' && /Mobi|Android|iPhone|iPad|iPod|Windows Phone|webOS/i.test(navigator.userAgent);
+
+  const copyToClipboard = async (value: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedText(`${label} copied`);
+      window.setTimeout(() => setCopiedText(''), 2500);
+    } catch {
+      setCopiedText(`Unable to copy ${label.toLowerCase()}`);
+      window.setTimeout(() => setCopiedText(''), 2500);
+    }
+  };
+
+  const handleEmailClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (isMobile) {
+      window.location.href = `mailto:${email}`;
+    } else {
+      window.open(`https://mail.google.com/mail/?view=cm&to=${encodeURIComponent(email)}`, '_blank');
+    }
+  };
+
+  const handlePhoneClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (isMobile) {
+      window.location.href = `https://wa.me/${phone.replace(/[^\d+]/g, '')}`;
+    } else {
+      copyToClipboard(phone, 'Phone number');
+    }
+  };
+
   return (
     <section
       id="contact"
@@ -74,17 +108,27 @@ export default function Contact() {
                   <div className="p-3 bg-graphite rounded-full border border-lead/20 text-[#5266eb] flex-shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
-                  <div>
+                  <div className="w-full">
                     <span className="block font-mono text-[9px] uppercase tracking-wider text-lead">
                       PERSONAL EMAIL
                     </span>
-                    <a
-                      id="direct-email-anchor"
-                      href="mailto:sanskarshr@gmail.com"
-                      className="block font-sans text-sm md:text-base font-medium text-starlight hover:text-[#5266eb] mt-0.5 transition-colors break-all"
-                    >
-                      sanskarshr@gmail.com
-                    </a>
+                    <div className="mt-0.5 flex flex-wrap items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={handleEmailClick}
+                        className="font-sans text-sm md:text-base font-medium text-starlight hover:text-[#5266eb] transition-colors"
+                      >
+                        {email}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => copyToClipboard(email, 'Email')}
+                        className="inline-flex items-center gap-2 rounded-full border border-lead/20 bg-graphite/80 px-3 py-2 text-[11px] uppercase tracking-[0.28em] text-silver hover:bg-[#5266eb]/10 hover:text-[#5266eb] transition-all duration-200"
+                      >
+                        <Copy className="w-3.5 h-3.5" />
+                        Copy Email
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -93,40 +137,48 @@ export default function Contact() {
                   <div className="p-3 bg-graphite rounded-full border border-lead/20 text-[#5266eb] flex-shrink-0">
                     <PhoneCall className="w-4 h-4" />
                   </div>
-                  <div>
+                  <div className="w-full">
                     <span className="block font-mono text-[9px] uppercase tracking-wider text-lead">
                       VIBER • WHATSAPP • CELLULAR
                     </span>
-                    <a
-                      id="direct-phone-anchor"
-                      href="https://wa.me/9779803121612"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block font-sans text-sm md:text-base font-medium text-starlight hover:text-[#5266eb] mt-0.5 transition-colors"
-                    >
-                      +977 98031 21612
-                    </a>
-                    
+                    <div className="mt-0.5 flex flex-wrap items-center gap-3">
+                      <button
+                        type="button"
+                        onClick={handlePhoneClick}
+                        className="font-sans text-sm md:text-base font-medium text-starlight hover:text-[#5266eb] transition-colors"
+                      >
+                        {phone}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => copyToClipboard(phone, 'Phone number')}
+                        className="inline-flex items-center gap-2 rounded-full border border-lead/20 bg-graphite/80 px-3 py-2 text-[11px] uppercase tracking-[0.28em] text-silver hover:bg-[#5266eb]/10 hover:text-[#5266eb] transition-all duration-200"
+                      >
+                        <Copy className="w-3.5 h-3.5" />
+                        Copy Number
+                      </button>
+                    </div>
+
                     {/* Action links */}
-                    <div className="flex items-center space-x-3 text-[10px] font-mono text-silver/60 mt-1.5">
-                      <a 
-                        href="https://wa.me/9779803121612" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
+                    <div className="flex items-center flex-wrap gap-3 text-[10px] font-mono text-silver/60 mt-1.5">
+                      <a
+                        href="https://wa.me/9779803121612"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="hover:text-[#5266eb] hover:underline"
                       >
                         WhatsApp
                       </a>
                       <span>•</span>
-                      <a 
-                        href="viber://chat?number=%2B9779803121612" 
+                      <a
+                        href="viber://chat?number=%2B9779803121612"
                         className="hover:text-[#5266eb] hover:underline"
                       >
                         Viber Direct
                       </a>
                       <span>•</span>
-                      <a 
-                        href="tel:+9779803121612" 
+                      <a
+                        href="tel:+9779803121612"
                         className="hover:text-[#5266eb] hover:underline"
                       >
                         Cellular Call
@@ -136,6 +188,12 @@ export default function Contact() {
                 </div>
 
               </div>
+              {copiedText ? (
+                <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#5266eb]/10 px-3 py-2 text-[11px] font-mono uppercase tracking-[0.28em] text-[#5266eb]">
+                  <CheckCircle className="w-3.5 h-3.5" />
+                  {copiedText}
+                </div>
+              ) : null}
             </div>
 
             {/* Social Networks footer alignment */}
