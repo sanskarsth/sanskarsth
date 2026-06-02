@@ -7,6 +7,7 @@ import resumePdf from '../assets/cv/SanskarShresthaResume.pdf';
 export default function Resume() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const resumePdfUrl = resumePdf;
+  const isMobile = typeof navigator !== 'undefined' && /Mobi|Android|iPhone|iPad|iPod|Windows Phone|webOS/i.test(navigator.userAgent);
 
   const triggerPdfDownload = () => {
     const link = document.createElement('a');
@@ -91,11 +92,27 @@ export default function Resume() {
               
               {/* The Paper A4 sheet layout structure container */}
               <div id="printable-cv-sheet" className="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-2xl mx-auto max-w-full">
-                <iframe
-                  title="Resume Preview"
-                  src={resumePdfUrl}
-                  className="w-full min-h-[1100px] border-0"
-                />
+                {isMobile ? (
+                  <div className="p-10 text-center">
+                    <p className="text-sm text-stone-700 mb-6">
+                      Mobile browsers often do not render embedded PDF previews inline. Tap below to view the exact CV in your PDF viewer.
+                    </p>
+                    <a
+                      href={resumePdfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center rounded-full bg-[#5266eb] px-6 py-3 text-sm font-mono uppercase tracking-[0.25em] text-starlight transition-all duration-300 hover:bg-[#4057d6]"
+                    >
+                      Open CV in PDF Viewer
+                    </a>
+                  </div>
+                ) : (
+                  <iframe
+                    title="Resume Preview"
+                    src={resumePdfUrl}
+                    className="w-full min-h-[1100px] border-0"
+                  />
+                )}
               </div>
 
             </motion.div>
