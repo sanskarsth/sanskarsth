@@ -80,48 +80,6 @@ export default function Resume() {
         transition={{ duration: 1.7, ease: 'easeOut' }}
       />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-[#171721]/88 via-[#171721]/75 to-[#171721]/97" />
-      {/* Dynamic inline stylesheet to guarantee that the resume preview dominates the page when printing */}
-      <style>{`
-        @media print {
-          @page {
-            size: A4 portrait;
-            margin: 10mm;
-          }
-          html, body {
-            width: 210mm;
-            height: 297mm;
-            margin: 0;
-            padding: 0;
-          }
-          body * {
-            visibility: hidden !important;
-          }
-          #printable-cv-sheet, #printable-cv-sheet * {
-            visibility: visible !important;
-          }
-          #printable-cv-sheet {
-            position: absolute !important;
-            top: 0 !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: 210mm !important;
-            min-height: 297mm !important;
-            margin: 0 !important;
-            padding: 15mm !important;
-            background: white !important;
-            color: black !important;
-            box-shadow: none !important;
-            border: none !important;
-            overflow: visible !important;
-          }
-          #printable-cv-sheet h3,
-          #printable-cv-sheet h4,
-          #printable-cv-sheet p,
-          #printable-cv-sheet li {
-            color: black !important;
-          }
-        }
-      `}</style>
 
       <div className="max-w-4xl mx-auto">
         
