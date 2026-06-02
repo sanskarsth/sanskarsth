@@ -1,0 +1,33 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # Runs every day at 12:00 UTC
+    - cron: '0 12 * * *'
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Ping Supabase API
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          echo "Pinging Supabase to prevent auto-pause..."
+          STATUS=$(curl -o /dev/null -w "%{http_code}" \
+            -X GET "https://${SUPABASE_URL}/rest/v1/" \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}")
+          
+          if [ "$STATUS" = "200" ]; then
+            echo "✅ Supabase ping successful! (Status: $STATUS)"
+          else
+            echo "❌ Supabase ping failed! (Status: $STATUS)"
+            exit 1
+          fi
+      
+      - name: Log timestamp
+        run: echo "Last ping at $(date -u)"

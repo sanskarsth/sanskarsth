@@ -74,14 +74,14 @@ export default function Contact() {
                 MY PHILOSOPHY
               </span>
               <p className="font-sans text-sm md:text-base text-silver italic leading-relaxed font-light mb-8">
-                “True adventure is a slow, respectful dialogue between you and the great peaks. I believe every itinerary should respect your personal space, safety limits, and physical timeline. No corporate templates, no rush.”
+                “Atithi Devo Bhava — अतिथिदेवो भव (The guest is equivalent to God). This ancient Sanskrit principle guides everything I do. Whether you're traveling for leisure, business, or seeking work abroad, I treat every client with the same respect, care, and dedication. No rushed service, no hidden fees, no corporate indifference. Just honest, personalized support from someone who believes you deserve nothing less than family-level treatment.”
               </p>
             </div>
 
             <div className="flex items-center space-x-3 border-t border-lead/10 pt-6">
               <div className="w-8 h-px bg-lead/30" />
               <span className="font-display text-xs text-starlight uppercase tracking-widest font-semibold">
-                Sanskar Shrestha
+                — Sanskar Shrestha, Harvest Moon Group
               </span>
             </div>
           </motion.div>

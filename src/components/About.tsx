@@ -11,29 +11,29 @@ interface AboutProps {
 export default function About({ onPlanJourney }: AboutProps) {
   const expertiseList = [
     {
-      title: 'My Custom Itinerary Design',
-      description: 'I manually hand-shape every day of your itinerary around your physical capabilities, time scale, and aesthetic rhythm.',
-      metric: '100% Curated'
+      title: 'International Flight Ticketing',
+      description: 'I book domestic and international flights across all major airlines, finding the best routes, connections, and prices for your destination.',
+      metric: 'Global Coverage'
     },
     {
-      title: 'Elite Adventure Engineering',
-      description: 'I coordinate high-altitude tracks with my trusted, certified Sherpas, premium medical kits, and direct sat-com links.',
-      metric: 'My Elite Team'
+      title: 'Hotel & Accommodation Booking',
+      description: 'I secure the best hotels, guesthouses, and serviced apartments — from budget stays to luxury properties — for tourists and business travelers.',
+      metric: 'Best Rates'
     },
     {
-      title: 'Curated Luxury Resourcing',
-      description: 'I lock in rare boutique rooms, direct custom helicopter travel, and VIP reception protocols at brand leaders like Aman.',
-      metric: 'Insider Access'
+      title: 'Visa Assistance & Documentation',
+      description: 'I guide travelers and job seekers through visa requirements, help prepare applications, and ensure documents meet embassy standards.',
+      metric: 'Visa Success'
     },
     {
-      title: 'True Intercultural Exchange',
-      description: 'I arrange private monastery blessings, ancient library walks, and fireside talks with historians and village elders.',
-      metric: 'Native Roots'
+      title: 'Overseas Manpower Recruitment',
+      description: 'I connect Nepali job seekers with employers in the Middle East, Malaysia, Europe, and beyond — handling the full recruitment and placement process.',
+      metric: 'Licensed Agency'
     },
     {
-      title: 'My Private Group Logistics',
-      description: 'I engineer seamless multi-track movements so that family groups or executive boards can travel seamlessly together.',
-      metric: 'Flawless Flow'
+      title: 'Complete Travel & Relocation',
+      description: 'From flights, hotels, and visas to job placement and pre-departure support — I handle every detail so you don\'t have to worry about a thing.',
+      metric: 'End-to-End'
     }
   ];
 
@@ -70,7 +70,7 @@ export default function About({ onPlanJourney }: AboutProps) {
               >
                 <img
                   src={signatureImage}
-                  alt="Sanskar Shrestha - Your Expedition Advisor & Curator"
+                  alt="Sanskar Shrestha - Travel & Recruitment Specialist at Harvest Moon Group"
                   className="w-full h-[420px] md:h-[480px] min-h-[320px] object-cover object-top filter grayscale-[10%] hover:grayscale-0 transition-all duration-700"
                   referrerPolicy="no-referrer"
                 />
@@ -79,18 +79,24 @@ export default function About({ onPlanJourney }: AboutProps) {
                     Sanskar Shrestha
                   </div>
                   <div className="font-sans font-medium text-starlight text-sm">
-                    Expedition Advisor & Curator
+                    Travel & Recruitment Specialist | Harvest Moon Group
                   </div>
                 </div>
               </motion.div>
 
               {/* Minimalist overlay details box */}
-              <div className="absolute -bottom-6 -right-6 bg-midnight-slate border border-lead p-5 rounded-lg max-w-[200px] hidden sm:block">
-                <span className="block font-display text-2xl font-bold text-starlight mb-0.5">Nepal Expert</span>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+                className="absolute -bottom-6 -right-6 bg-midnight-slate border border-lead p-5 rounded-lg max-w-[200px] hidden sm:block"
+              >
+                <span className="block font-display text-2xl font-bold text-starlight mb-0.5">Travel • Visas • Recruitment</span>
                 <span className="block font-mono text-[9px] uppercase tracking-widest text-silver">
-                  Born & Based in Nepal
+                  Harvest Moon Group
                 </span>
-              </div>
+              </motion.div>
             </div>
           </div>
 
@@ -98,7 +104,7 @@ export default function About({ onPlanJourney }: AboutProps) {
           <div className="lg:col-span-7 order-1 lg:order-2">
             <div className="max-w-xl">
               <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#5266eb] block mb-3">
-                THE ADVISOR
+                YOUR TRAVEL & RECRUITMENT PARTNER
               </span>
               
               <h2 className="font-display font-medium text-3xl md:text-5xl text-starlight tracking-tight leading-tight mb-4">
@@ -106,7 +112,7 @@ export default function About({ onPlanJourney }: AboutProps) {
               </h2>
               
               <p className="font-sans text-silver text-base md:text-lg leading-relaxed font-light mb-6 font-serif italic text-starlight">
-                “As an independent travel advisor and expedition curator, I believe that exploring the peaks of the giant mountains has to be a slow, safe, and deeply personal dialogue. Growing up in Nepal, I learned early on that the magic is never found in high-volume, commercialized agency packages. Instead, it lives in unique, meticulously planned retreats, elite safety logistics, and direct cultural access.”
+                “Based in Kathmandu, I work with Harvest Moon Group of Companies as your complete travel and recruitment partner. I handle international flight ticketing, hotel bookings, visa processing, and overseas manpower recruitment — all under one roof. Whether you're planning a vacation, need accommodation, or helping a Nepali job seeker find work in the Middle East, Malaysia, or Europe, I manage the flights, the paperwork, the hotels, and everything in between. My job is to make international movement simple, reliable, and stress-free.”
               </p>
 
               {/* Custom Expertise Checklist */}
@@ -149,7 +155,7 @@ export default function About({ onPlanJourney }: AboutProps) {
                   onClick={onPlanJourney}
                   className="bg-graphite hover:bg-[#5266eb] border border-lead/50 hover:border-[#5266eb] text-starlight hover:text-white px-8 py-3.5 rounded-full text-xs font-mono uppercase tracking-widest font-semibold transition-all duration-300 cursor-pointer"
                 >
-                  Reach Out Directly
+                  Start Your Journey With Me →
                 </button>
               </div>
             </div>
