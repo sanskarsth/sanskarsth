@@ -1,72 +1,79 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 import { FileText, Download, Printer, Eye, EyeOff, CheckCircle, ExternalLink } from 'lucide-react';
 import heroImage from '../assets/images/hero_himalayas_1780318764999.png';
 
 export default function Resume() {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
-  const triggerPdfDownload = () => {
-    const resumeTextContent = `SANSKAR SHRESTHA
-Expedition Curator & High-Altitude Logistics Advisor
-Kathmandu, Nepal | sanskarshr@gmail.com | +977 98031 21612
+  const triggerPdfDownload = async () => {
+    const element = document.getElementById('printable-cv-sheet');
+    if (!element) return;
 
-PROFESSIONAL STATEMENT
-Independent alpine expedition curator and expert logistics liaison based in Kathmandu. Over a decade of field planning and risk reduction, securing safety compliance and specialized cultural itineraries across Nepal, Tibet, and Bhutan.
-
-ADVISORY & FIELD EXPERIENCE
-Lead Private Expedition Curator — Sanskar Shrestha Escapes • Independent (2019 — Present)
-- Designs and refines day-by-day expedition layouts custom-molded to physical thresholds and elite aesthetic goals.
-- Maintains priority allocations with Aman Residences, Dwarika's, and boutique mountain partners.
-- Orchestrates satellite radio assets and automated helicopter backup tracking corridors on high-risk routes.
-
-Senior Alpine Operations Coordinator — Himalayan Ridge Logistical Partner Alliance (2015 — 2019)
-- Supervised multi-generation family groups across highly challenging high-altitude terrain.
-- Managed over 60 elite Gurung and Sherpa guides with direct emergency response drills.
-- Administered dual-network communications across deep gorges and dead telemetry zones.
-
-Expedition Liaison & Field Administrator — Summit Wilderness Advisors (2011 — 2015)
-- Processed environmental permits and high-elevation park clearances under strict regulations.
-- Coordinated gateway clearances and cultural respect protocols with monastic communities.
-
-COMPETENCIES & SKILLS
-Technical Security & Safety
-- Acclimatization design, clinical-grade oxygen setup, Garmin InReach, VHF/UHF emergency logistics
-- High-altitude medical readiness and environmental risk mitigation
-
-Cultural & Operational
-- Fluent in English, Nepali, Tibetan, and regional dialects
-- Aman Resorts and Dwarika's liaison for exclusive bookings
-- Eco-sensitive adventure logistics and heritage compliance
-
-CERTIFICATIONS
-- Certified Wilderness Medical Responder
-- High-Altitude Alpine Rescue & Logistics Clearance
-- Cultural Heritage of the Himalayas Studies
-`;
-
-    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
-    const margin = 40;
-    const lineHeight = 16;
-    const maxLineWidth = doc.internal.pageSize.getWidth() - margin * 2;
-    const lines = doc.splitTextToSize(resumeTextContent, maxLineWidth);
-    let cursorY = margin;
-
-    lines.forEach((line) => {
-      if (cursorY > doc.internal.pageSize.getHeight() - margin) {
-        doc.addPage();
-        cursorY = margin;
-      }
-      doc.text(line, margin, cursorY);
-      cursorY += lineHeight;
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#ffffff',
     });
 
-    doc.save('Sanskar_Shrestha_CV.pdf');
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF({ unit: 'mm', format: 'a4' });
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pdfWidth;
+    const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    const totalPages = Math.ceil(imgHeight / pdfHeight);
+    for (let page = 0; page < totalPages; page += 1) {
+      if (page > 0) pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, -page * pdfHeight, imgWidth, imgHeight);
+    }
+
+    pdf.save('Sanskar_Shrestha_CV.pdf');
   };
 
   const triggerPrint = () => {
-    window.print();
+    const element = document.getElementById('printable-cv-sheet');
+    if (!element) return;
+
+    const cssLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+      .map((link) => link.outerHTML)
+      .join('');
+
+    const printWindow = window.open('', '_blank', 'width=900,height=700');
+    if (!printWindow) return;
+
+    printWindow.document.write(`
+      <!doctype html>
+      <html lang="en">
+        <head>
+          <meta charset="utf-8" />
+          <title>Sanskar Shrestha CV</title>
+          ${cssLinks}
+          <style>
+            @page { size: A4 portrait; margin: 10mm; }
+            body { margin: 0; padding: 0; background: #ffffff; }
+            #printable-cv-sheet { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 15mm; box-sizing: border-box; background: #ffffff; }
+            #printable-cv-sheet * { color: #000 !important; }
+          </style>
+        </head>
+        <body>
+          ${element.outerHTML}
+        </body>
+      </html>
+    `);
+
+    printWindow.document.close();
+    printWindow.focus();
+
+    printWindow.onload = () => {
+      setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+      }, 200);
+    };
   };
 
   return (
