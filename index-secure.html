@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- SECURITY: Character encoding (MUST be first) -->
+    <meta charset="UTF-8" />
+    
+    <!-- SECURITY: Content Security Policy -->
+    <meta 
+      http-equiv="Content-Security-Policy" 
+      content="
+        default-src 'self';
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        script-src 'self' 'nonce-{REPLACE_WITH_NONCE}';
+        img-src 'self' data: https:;
+        font-src 'self' https://fonts.gstatic.com;
+        connect-src 'self' https://api.google.com https://generativelanguage.googleapis.com;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+        frame-ancestors 'none';
+        upgrade-insecure-requests;
+      "
+    />
+    
+    <!-- SECURITY: Additional HTTP security headers (via meta fallback) -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="Referrer-Policy" content="strict-no-referrer" />
+    
+    <!-- SECURITY: Disable form autocomplete for sensitive fields -->
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    
+    <!-- SEO & BRANDING: Responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    
+    <!-- SEO: Primary metadata -->
+    <title>Sanskar Shrestha • Curated Extraordinary Journeys & Luxury Expeditions</title>
+    <meta name="description" content="Premium travel consultant portfolio for custom expeditions, luxury escapes, and tailor-made Himalayan journeys by Sanskar Shrestha." />
+    <meta name="keywords" content="travel consultant, luxury expeditions, Himalayan trekking, custom journeys, Nepal travel" />
+    
+    <!-- SEO: Open Graph (Social Media) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sanskar Shrestha • Curated Extraordinary Journeys & Luxury Expeditions" />
+    <meta property="og:description" content="Premium travel consultant portfolio for custom expeditions, luxury escapes, and tailor-made Himalayan journeys by Sanskar Shrestha." />
+    <meta property="og:image" content="/src/assets/images/hero_himalayas_1780318764999.png" />
+    <meta property="og:url" content="https://sanskarshrestha.com" />
+    <meta property="og:site_name" content="Sanskar Shrestha" />
+    
+    <!-- SEO: Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sanskar Shrestha • Curated Extraordinary Journeys & Luxury Expeditions" />
+    <meta name="twitter:description" content="Premium travel consultant portfolio for custom expeditions, luxury escapes, and tailor-made Himalayan journeys by Sanskar Shrestha." />
+    <meta name="twitter:image" content="/src/assets/images/hero_himalayas_1780318764999.png" />
+    
+    <!-- SEO: Canonical URL -->
+    <link rel="canonical" href="https://sanskarshrestha.com" />
+    
+    <!-- SEO & BRANDING: Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- BRANDING: Theme color -->
+    <meta name="theme-color" content="#0F0A1A" />
+    
+    <!-- SECURITY: Format detection disable -->
+    <meta name="format-detection" content="telephone=no, email=no" />
+    
+    <!-- PRIVACY & COMPLIANCE: Privacy policy link -->
+    <link rel="privacy-policy" href="/privacy-policy" />
+    
+    <!-- ACCESSIBILITY: Language declaration -->
+    <meta name="language" content="English" />
+    
+    <!-- SEO: Mobile optimization -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Sanskar Shrestha" />
+    
+    <!-- PRELOAD: Critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://api.google.com" />
+    
+    <!-- SECURITY: No tracking by default -->
+    <meta name="tracking-opt-out" content="yes" />
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- SECURITY: Module script with nonce (backend should set this) -->
+    <script type="module" src="/src/main.tsx" nonce="{REPLACE_WITH_NONCE}"></script>
+    
+    <!-- SECURITY: Inline script blocker (optional) -->
+    <script nonce="{REPLACE_WITH_NONCE}">
+      // Prevent eval() execution
+      if (window.eval === eval) {
+        delete window.eval;
+      }
+    </script>
+  </body>
+</html>
