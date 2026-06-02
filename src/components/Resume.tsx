@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { FileText, Download, Printer, Eye, EyeOff, CheckCircle, ExternalLink } from 'lucide-react';
+import { FileText, Download, Eye, EyeOff, CheckCircle, ExternalLink } from 'lucide-react';
 import heroImage from '../assets/images/hero_himalayas_1780318764999.png';
 import resumePdf from '../assets/cv/SanskarShresthaResume.pdf';
 
@@ -15,56 +15,6 @@ export default function Resume() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
-
-  const triggerPrint = () => {
-    const printWindow = window.open('', '_blank', 'width=900,height=700');
-    if (!printWindow) return;
-
-    printWindow.document.write(`
-      <!doctype html>
-      <html lang="en">
-        <head>
-          <meta charset="utf-8" />
-          <title>Print CV</title>
-          <style>
-            body, html {
-              margin: 0;
-              padding: 0;
-              height: 100%;
-              width: 100%;
-              overflow: hidden;
-              background: #ffffff;
-            }
-            iframe {
-              width: 100%;
-              height: 100%;
-              border: none;
-            }
-          </style>
-        </head>
-        <body>
-          <iframe id="printFrame" src="${resumePdfUrl}"></iframe>
-          <script>
-            const frame = document.getElementById('printFrame');
-            if (frame) {
-              frame.onload = () => {
-                setTimeout(() => {
-                  try {
-                    window.focus();
-                    window.print();
-                  } catch (e) {
-                    console.warn('Print failed', e);
-                  }
-                }, 600);
-              };
-            }
-          <\/script>
-        </body>
-      </html>
-    `);
-
-    printWindow.document.close();
   };
 
   return (
@@ -139,23 +89,6 @@ export default function Resume() {
               className="space-y-6"
             >
               
-              {/* Print Helper Strip */}
-              <div className="bg-midnight-slate border border-[#5266eb]/30 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex items-center space-x-3 text-left">
-                  <Printer className="w-4 h-4 text-[#5266eb]" />
-                  <div>
-                    <p className="font-mono text-[10px] uppercase font-bold text-starlight">SYSTEM DIRECT PRINT INTERFACE</p>
-                    <p className="font-sans text-[11px] text-silver font-light">Press print to export this A4 layout directly to PDF or paper.</p>
-                  </div>
-                </div>
-                <button
-                  onClick={triggerPrint}
-                  className="bg-[#272735] hover:bg-[#5266eb] text-starlight hover:text-white border border-lead/30 hover:border-transparent text-[10px] font-mono uppercase tracking-widest px-4 py-2.5 rounded-lg transition-colors cursor-pointer"
-                >
-                  Print / Export to PDF
-                </button>
-              </div>
-
               {/* The Paper A4 sheet layout structure container */}
               <div id="printable-cv-sheet" className="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-2xl mx-auto max-w-full">
                 <iframe
