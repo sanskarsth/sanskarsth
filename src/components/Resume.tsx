@@ -9,48 +9,41 @@ export default function Resume() {
 
   const triggerPdfDownload = () => {
     const resumeTextContent = `SANSKAR SHRESTHA
-Independent Advisor & Expedition Curator
+Expedition Curator & High-Altitude Logistics Advisor
 Kathmandu, Nepal | sanskarshr@gmail.com | +977 98031 21612
 
-=======================================================
-SUMMARY
-=======================================================
-Independent alpine expedition curator and luxury lodge logistics advisor with over a decade of field mastery in the Nepal Himalayas. Expert in altitude safety engineering, bespoke itinerary design, private helicopter routing, and exclusive cultural permissions.
+PROFESSIONAL STATEMENT
+Independent alpine expedition curator and expert logistics liaison based in Kathmandu. Over a decade of field planning and risk reduction, securing safety compliance and specialized cultural itineraries across Nepal, Tibet, and Bhutan.
 
-=======================================================
-EXPERIENCE
-=======================================================
-1. Lead Private Expedition Curator
-   Sanskar Shrestha Escapes | 2019 - Present
-   * Handcrafted over 150+ custom high-altitude itineraries with zero safety incidents.
-   * Locked in exclusive room tiers with luxury collections (Aman, Dwarika's, boutique estates).
-   * Coordinated satellite communication routes and helicopter dispatch paths for private high-profile clients.
+ADVISORY & FIELD EXPERIENCE
+Lead Private Expedition Curator — Sanskar Shrestha Escapes • Independent (2019 — Present)
+- Designs and refines day-by-day expedition layouts custom-molded to physical thresholds and elite aesthetic goals.
+- Maintains priority allocations with Aman Residences, Dwarika's, and boutique mountain partners.
+- Orchestrates satellite radio assets and automated helicopter backup tracking corridors on high-risk routes.
 
-2. Senior Alpine Operations Coordinator
-   Himalayan Ridge Logistical Partner Alliance | 2015 - 2019
-   * Managed portage teams, shelter permits, and high-elevation logistics manifests.
-   * Evaluated, vetted, and contracted over 60 elite certified Sherpa and Gurung field guides.
-   * Set up redundant dual-network satellite transceivers in high-altitude dead zones.
+Senior Alpine Operations Coordinator — Himalayan Ridge Logistical Partner Alliance (2015 — 2019)
+- Supervised multi-generation family groups across highly challenging high-altitude terrain.
+- Managed over 60 elite Gurung and Sherpa guides with direct emergency response drills.
+- Administered dual-network communications across deep gorges and dead telemetry zones.
 
-3. Expedition Liaison & Field Guide Administrator
-   Summit Wilderness Advisors | 2011 - 2015
-   * Directed national park regulations clearances and environmental compliance.
-   * Negotiated private monastery gateway clearance and sacred village entrances with Abbott Councils.
+Expedition Liaison & Field Administrator — Summit Wilderness Advisors (2011 — 2015)
+- Processed environmental permits and high-elevation park clearances under strict regulations.
+- Coordinated gateway clearances and cultural respect protocols with monastic communities.
 
-=======================================================
-CORE COMPETENCIES & SKILLS
-=======================================================
-* Safety: Physiological acclimatization design, oxygen systems, Garmin InReach tracking, UHF radios
-* Logistics: Helicopter load balancing, custom flight plans, private transfers, premium camps
-* Curation: Aman Partnership, Dwarika's exclusive tiers, specialized travel diets, custom maps
-* Cultural: Fluent in Nepali, Tibetan, English; direct contact with remote village keepers
+COMPETENCIES & SKILLS
+Technical Security & Safety
+- Acclimatization design, clinical-grade oxygen setup, Garmin InReach, VHF/UHF emergency logistics
+- High-altitude medical readiness and environmental risk mitigation
 
-=======================================================
-EDUCATION & CERTIFICATIONS
-=======================================================
-* Wilderness First Responder (WFR) - Wilderness Medical Associates
-* High-Altitude Alpine Rescue & Logistics Clearance - National Mountaineering Authority
-* Cultural Heritage of the Himalayas Studies - Kathmandu Valley Institute
+Cultural & Operational
+- Fluent in English, Nepali, Tibetan, and regional dialects
+- Aman Resorts and Dwarika's liaison for exclusive bookings
+- Eco-sensitive adventure logistics and heritage compliance
+
+CERTIFICATIONS
+- Certified Wilderness Medical Responder
+- High-Altitude Alpine Rescue & Logistics Clearance
+- Cultural Heritage of the Himalayas Studies
 `;
 
     const doc = new jsPDF({ unit: 'pt', format: 'a4' });
@@ -94,6 +87,16 @@ EDUCATION & CERTIFICATIONS
       {/* Dynamic inline stylesheet to guarantee that the resume preview dominates the page when printing */}
       <style>{`
         @media print {
+          @page {
+            size: A4 portrait;
+            margin: 10mm;
+          }
+          html, body {
+            width: 210mm;
+            height: 297mm;
+            margin: 0;
+            padding: 0;
+          }
           body * {
             visibility: hidden !important;
           }
@@ -102,15 +105,24 @@ EDUCATION & CERTIFICATIONS
           }
           #printable-cv-sheet {
             position: absolute !important;
-            left: 0 !important;
             top: 0 !important;
-            width: 100% !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 210mm !important;
+            min-height: 297mm !important;
             margin: 0 !important;
-            padding: 2.5cm !important;
+            padding: 15mm !important;
             background: white !important;
             color: black !important;
             box-shadow: none !important;
             border: none !important;
+            overflow: visible !important;
+          }
+          #printable-cv-sheet h3,
+          #printable-cv-sheet h4,
+          #printable-cv-sheet p,
+          #printable-cv-sheet li {
+            color: black !important;
           }
         }
       `}</style>

@@ -16,7 +16,6 @@ interface TestimonialRecord {
 
 
 export default function Testimonials() {
-  const [activeTab, setActiveTab] = useState<'view' | 'submit'>('view');
   const [testimonials, setTestimonials] = useState<TestimonialRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -168,7 +167,6 @@ export default function Testimonials() {
     setFormState({ name: '', email: '', message: '' });
     setSuccessMessage('Thanks! Your testimonial is under review.');
     setSubmitting(false);
-    setActiveTab('view');
     window.setTimeout(() => setSuccessMessage(''), 5000);
   };
 
@@ -193,27 +191,8 @@ export default function Testimonials() {
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={() => setActiveTab('view')}
-              className={`px-4 py-3 rounded-full text-xs uppercase tracking-[0.25em] font-mono transition-all duration-300 ${
-                activeTab === 'view'
-                  ? 'bg-[#5266eb] text-starlight'
-                  : 'bg-graphite border border-lead/20 text-silver hover:bg-[#5266eb]/10'
-              }`}
-            >
-              Approved Reviews
-            </button>
-            <button
-              onClick={() => setActiveTab('submit')}
-              className={`px-4 py-3 rounded-full text-xs uppercase tracking-[0.25em] font-mono transition-all duration-300 ${
-                activeTab === 'submit'
-                  ? 'bg-[#5266eb] text-starlight'
-                  : 'bg-graphite border border-lead/20 text-silver hover:bg-[#5266eb]/10'
-              }`}
-            >
-              Submit Testimonial
-            </button>
+          <div className="text-silver text-sm max-w-xl">
+            Read approved testimonials from past clients and share your feedback using the form on the right.
           </div>
         </div>
 
