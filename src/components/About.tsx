@@ -84,19 +84,6 @@ export default function About({ onPlanJourney }: AboutProps) {
                 </div>
               </motion.div>
 
-              {/* Minimalist overlay details box */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-100px' }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-                className="absolute -bottom-6 -right-6 bg-midnight-slate border border-lead p-5 rounded-lg max-w-[200px] hidden sm:block"
-              >
-                <span className="block font-display text-2xl font-bold text-starlight mb-0.5">Travel • Visas • Recruitment</span>
-                <span className="block font-mono text-[9px] uppercase tracking-widest text-silver">
-                  Harvest Moon Group
-                </span>
-              </motion.div>
             </div>
           </div>
 
