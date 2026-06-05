@@ -64,7 +64,7 @@ export default function Navbar({ onNavigate, activeSection }: NavbarProps) {
           </button>
 
           {/* Desktop Navigation Links with Framer Motion Sliding Indicator */}
-          <div className="hidden md:flex items-center space-x-8 pr-2">
+          <nav aria-label="Desktop Navigation" className="hidden md:flex items-center space-x-8 pr-2">
             {navItems.map((item) => {
               const isSelected = activeSection === item.id;
               return (
@@ -91,7 +91,7 @@ export default function Navbar({ onNavigate, activeSection }: NavbarProps) {
                 </button>
               );
             })}
-          </div>
+          </nav>
 
 
 
@@ -111,7 +111,8 @@ export default function Navbar({ onNavigate, activeSection }: NavbarProps) {
         {/* Mobile Flyout Menu Panel */}
         <AnimatePresence>
           {isMobileMenuOpen && (
-            <motion.div
+            <motion.nav
+              aria-label="Mobile Navigation"
               id="mobile-navigation-panel"
               initial={{ opacity: 0, scale: 0.95, y: -15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -139,7 +140,7 @@ export default function Navbar({ onNavigate, activeSection }: NavbarProps) {
                 );
               })}
               
-            </motion.div>
+            </motion.nav>
           )}
         </AnimatePresence>
       </header>

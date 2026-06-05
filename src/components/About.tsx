@@ -94,9 +94,9 @@ export default function About({ onPlanJourney }: AboutProps) {
                 YOUR TRAVEL & RECRUITMENT PARTNER
               </span>
               
-              <h2 className="font-display font-medium text-3xl md:text-5xl text-starlight tracking-tight leading-tight mb-4">
+              <h1 className="font-display font-medium text-3xl md:text-5xl text-starlight tracking-tight leading-tight mb-4">
                 Meet Sanskar Shrestha
-              </h2>
+              </h1>
               
               <p className="font-sans text-silver text-base md:text-lg leading-relaxed font-light mb-6 font-serif italic text-starlight">
                 “Based in Kathmandu, I work with Harvest Moon Group of Companies as your complete travel and recruitment partner. I handle international flight ticketing, hotel bookings, visa processing, and overseas manpower recruitment — all under one roof. Whether you're planning a vacation, need accommodation, or helping a Nepali job seeker find work in the Middle East, Malaysia, or Europe, I manage the flights, the paperwork, the hotels, and everything in between. My job is to make international movement simple, reliable, and stress-free.”
@@ -120,9 +120,9 @@ export default function About({ onPlanJourney }: AboutProps) {
                     </div>
                     <div>
                       <div className="flex items-center space-x-2">
-                        <h4 className="font-display font-medium text-starlight text-sm md:text-base group-hover:text-[#5266eb] transition-colors">
+                        <h3 className="font-display font-medium text-starlight text-sm md:text-base group-hover:text-[#5266eb] transition-colors">
                           {item.title}
-                        </h4>
+                        </h3>
                         <span className="font-mono text-[9px] uppercase tracking-wider text-lead bg-[#272735] px-2 py-0.5 rounded">
                           {item.metric}
                         </span>
